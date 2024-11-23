@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontHomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::prefix('front')->name("front.")->group(function(){
+    Route::get('/', FrontHomeController::class)->name('index');
+    Route::view("/login","front.auth.login");
+    Route::view("/register","front.auth.register");
+    Route::view("/forget-password","front.auth.forget-password");
+});
 
 Route::get('/', function () {
     return view('welcome');
