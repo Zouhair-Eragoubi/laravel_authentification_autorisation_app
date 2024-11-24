@@ -1,5 +1,5 @@
 @extends('front.auth.master')
-@section('title', 'Forgot Password Page')
+@section('title', 'Reset Password Page')
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -72,8 +72,10 @@
 
       <!-- Validation Errors -->
       <x-auth-validation-errors class="mb-4" :errors="$errors" />
-      <form id="formAuthentication" class="mb-3" action="{{ route('password.email') }}" method="POST">
+      <form id="formAuthentication" class="mb-3" action="{{ route('password.update') }}" method="POST">
         @csrf
+        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input
@@ -81,12 +83,29 @@
             class="form-control"
             id="email"
             name="email"
+            value="{{old('email', $request->email)}}"
             placeholder="Enter your email"
-            autofocus
           />
         </div>
-        
-        <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
+        <div class="mb-3 form-password-toggle">
+            <label class="form-label" for="password">{{__('Password')}}</label>
+            <div class="input-group input-group-merge">
+                <input type="password" id="password" class="form-control" name="password"
+                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                    aria-describedby="password" />
+                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+            </div>
+        </div>
+        <div class="mb-3 form-password-toggle">
+            <label class="form-label" for="password_confirmation">{{__('password confirmation')}}</label>
+            <div class="input-group input-group-merge">
+                <input type="password" id="password_confirmation" class="form-control" name="password_confirmation"
+                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                    aria-describedby="password" />
+                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+            </div>
+        </div>
+        <button class="btn btn-primary d-grid w-100">Reset Password</button>
       </form>
       <div class="text-center">
         <a href="{{ route('login') }}" class="d-flex align-items-center justify-content-center">
