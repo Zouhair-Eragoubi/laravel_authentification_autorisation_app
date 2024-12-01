@@ -1,4 +1,4 @@
-@extends("front.master")
+@extends("back.master")
 @section("title","Home Page")
 @section("content")
 <div class="row">
@@ -247,8 +247,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
+    </div>
+    <div class="row">
     <!-- Order Statistics -->
     <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
       <div class="card h-100">
@@ -531,5 +531,5 @@
       </div>
     </div>
     <!--/ Transactions -->
-  </div>
+</div>
 @endsection
