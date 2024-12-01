@@ -15,11 +15,12 @@ class EmailVerificationRequest extends FormRequest
      */
     public function authorize()
     {
-        if (! hash_equals((string) Auth::guard("admin")->user()->getKey(), (string) $this->route('id'))) {
+        $admin = Auth::guard("admin")->user();
+        if (! hash_equals((string) $admin->getKey(), (string) $this->route('id'))) {
             return false;
         }
 
-        if (! hash_equals(sha1(Auth::guard("admin")->user()->getEmailForVerification()), (string) $this->route('hash'))) {
+        if (! hash_equals(sha1($admin->getEmailForVerification()), (string) $this->route('hash'))) {
             return false;
         }
 

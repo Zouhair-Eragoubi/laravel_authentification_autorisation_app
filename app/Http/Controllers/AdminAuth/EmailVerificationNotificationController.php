@@ -17,7 +17,8 @@ class EmailVerificationNotificationController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::guard('admin')->user()->hasVerifiedEmail()) {
+        $admin = Auth::guard('admin')->user();
+        if ( $admin->hasVerifiedEmail()) {
             return redirect()->intended(RouteServiceProvider::BACK_HOME);
         }
 

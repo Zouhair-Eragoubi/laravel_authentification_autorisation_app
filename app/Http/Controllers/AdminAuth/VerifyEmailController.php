@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminAuth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\EmailVerificationRequest;
+use App\Models\Admin;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
@@ -18,12 +19,13 @@ class VerifyEmailController extends Controller
      */
     public function __invoke(EmailVerificationRequest $request)
     {
-        if (Auth::guard("admin")->user()->hasVerifiedEmail()) {
+        $admin = Auth::guard("admin")->user();
+        if ($admin->hasVerifiedEmail()) {
             return redirect()->intended(RouteServiceProvider::BACK_HOME.'?verified=1');
         }
 
-        if (Auth::guard("admin")->user()->markEmailAsVerified()) {
-            event(new Verified(Auth::guard("admin")->user()));
+        if ($admin->markEmailAsVerified()) {
+            event(new Verified($admin));
         }
 
         return redirect()->intended(RouteServiceProvider::BACK_HOME.'?verified=1');
