@@ -19,7 +19,9 @@
   data-theme="theme-default"
   data-assets-path="{{ asset('assets') }}/"
   data-template="vertical-menu-template-free"
+
 >
+<meta name="csrf-token" content="{{ csrf_token() }}">
  @include('back.partials.head')
 
 
@@ -63,6 +65,9 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
+    @include('back.modals.mainModal')
+    @include('back.modals.deleteModal')
+    @include('back.modals.spinner')
     @include('back.partials.scripts')
   </body>
 </html>

@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontHomeController;
 use App\Http\Controllers\BackHomeController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,5 +33,19 @@ Route::get('/back', BackHomeController::class)->middleware(['adminAuth'])->name(
 require __DIR__.'/auth.php';
 
 Route::prefix('back')->name("back.")->group(function(){
+    ##------------------------------------------------------- USERS MODULE
+    Route::controller(UserController::class)->middleware(['adminAuth'])->group(function () {
+        Route::resource('users', UserController::class);
+    });
+
+    ##------------------------------------------------------- ROLES MODULE
+    Route::controller(RoleController::class)->middleware(['adminAuth'])->group(function () {
+        Route::resource('roles', RoleController::class);
+    });
+
+    ##------------------------------------------------------- ADMINS MODULE
+    Route::controller(AdminController::class)->middleware(['adminAuth'])->group(function () {
+        Route::resource('admins', AdminController::class);
+    });
     require __DIR__.'/adminAuth.php';
 });
