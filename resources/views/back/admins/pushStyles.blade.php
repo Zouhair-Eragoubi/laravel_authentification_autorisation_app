@@ -1,3 +1,5 @@
-@push('style')
+@push('styles')
+    <style>
 
+    </style>
 @endpush

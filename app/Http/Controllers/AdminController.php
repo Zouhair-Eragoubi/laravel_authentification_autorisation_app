@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Facades\Greet;
 use App\Models\Branch;
 use App\Enums\AdminStatuses;
 use Illuminate\Http\Request;
 use App\Services\UploadService;
+use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
-use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -31,6 +32,7 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+        //dd(Greet::greet("zouhair"));
         $data = $this->getData($request->all());
         return view(self::DIRECTORY . ".index", \get_defined_vars())->with('directory', self::DIRECTORY);
     }

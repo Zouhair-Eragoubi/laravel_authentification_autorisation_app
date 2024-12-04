@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\GreetingService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -14,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(GreetingService::class,function($app){
+            return new GreetingService();
+        });
     }
 
     /**

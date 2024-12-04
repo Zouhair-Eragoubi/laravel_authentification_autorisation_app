@@ -1,4 +1,3 @@
-<script src="{{asset('assets')}}/vendor/libs/jquery/jquery.js"></script>
 <script>
     $("document").ready(function() {
         //============================================= LOADER

@@ -107,6 +107,4 @@
         </div>
     </div>
 @endsection
-
-@includeIf("$directory.scripts")
 @includeIf("$directory.pushScripts")
