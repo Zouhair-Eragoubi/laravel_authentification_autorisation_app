@@ -15,7 +15,7 @@ class UserController extends Controller
 
     function __construct()
     {
-        // $this->middleware('check_permission:add_user')->only(['create', 'store']);
+        //$this->middleware('check_permission:add_user')->only(['create', 'store']);
         // $this->middleware('check_permission:show_user')->only(['show']);
         // $this->middleware('check_permission:edit_user')->only(['edit', 'update']);
         // $this->middleware('check_permission:delete_user')->only(['destroy']);
@@ -73,10 +73,16 @@ class UserController extends Controller
      */
     public function create()
     {
-        Gate::forUser(Auth::guard('admin')->user())->authorize('add_user');
+        // Gate::forUser(Auth::guard('admin')->user())->authorize('add_user');
         // if (Auth::guard('admin')->user()->cannot('add_user')) {
         //     abort(403);
         // }
+
+        //Policy
+        if (Auth::guard("admin")->user()->cannot('create')) {
+            abort(404);
+        }
+        
         return view(self::DIRECTORY . ".create", get_defined_vars());
     }
 
